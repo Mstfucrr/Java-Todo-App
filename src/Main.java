@@ -27,29 +27,22 @@ public class Main {
         System.out.println("3. Çıkış");
 
     }
-    public static void run() throws SQLException {
+    public static void run() throws SQLException { // Açılış menüsü
         while (true){
             menu();
             System.out.println("Seçiminiz: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            switch(choice){
-                case 1:
-                    login();
-                    break;
-                case 2:
-                    register();
-                    break;
-                case 3:
-                    exit();
-                    break;
-                default:
-                    System.out.println("Hatalı seçim");
+            switch (choice) {
+                case 1 -> login();
+                case 2 -> register();
+                case 3 -> exit();
+                default -> System.out.println("Hatalı seçim");
             }
         }
     }
-    public static void login() throws SQLException {
+    public static void login() throws SQLException { // Giriş yap
         System.out.println("Kullanıcı adı: ");
         String username = scanner.nextLine();
         System.out.println("Şifre: ");
@@ -60,17 +53,12 @@ public class Main {
             System.out.println("Giriş başarılı");
             int id = isLogin;
             UserMenu(id);
-            // TODO: Todo listesini göster
-            // TODO: Todo listesine ekleme yap
-            // TODO: Todo listesinden silme yap
-            // TODO: Todo listesini güncelle
-            // TODO: Todo listesini tamamla
         }
         else{
             System.out.println("Giriş başarısız");
         }
     }
-    public static void register() throws SQLException {
+    public static void register() throws SQLException { // Kayıt ol
         System.out.println("Kullanıcı adı: ");
         String username = scanner.nextLine();
         System.out.println("Şifre: ");
@@ -78,18 +66,22 @@ public class Main {
         System.out.println("Şifre tekrar: ");
         String passwordRe = scanner.nextLine();
 
-        System.out.println(password.equals(passwordRe)
-                ? "Kayıt başarılı"
-                : "Şifreler uyuşmuyor");
-
-        userDbHelper.register(username, password);
+        if(password.equals(passwordRe)){
+            System.out.println("Kayıt başarılı\n");
+            userDbHelper.register(username, password);
+            login();
+        }
+        else{
+            System.out.println("Şifreler uyuşmuyor\n");
+            register();
+        }
     }
     public static void exit(){
         System.out.println("Çıkış yapılıyor...");
         System.exit(0);
     }
 
-    public static void UserMenu(int userId) throws SQLException {
+    public static void UserMenu(int userId) throws SQLException { //Kullanıcı Menüsü
         while (true){
             System.out.println("1. Todo listesini göster");
             System.out.println("2. Todo listesine ekleme yap");
@@ -106,31 +98,31 @@ public class Main {
 
             switch(user_select){
                 case 1:
-                    showTodoList(userId);
+                    showTodoList(userId); // Todo listesini göster
                     break;
                 case 2:
-                    addTodo(userId);
+                    addTodo(userId); // Todo listesine ekleme yap
                     break;
                 case 3:
-                    deleteTodo(userId);
+                    deleteTodo(userId); // Todo listesinden silme yap
                     break;
                 case 4:
-                    updateTodo(userId);
+                    updateTodo(userId); // Todo güncelle
                     break;
                 case 5:
-                    completeTodo(userId);
+                    completeTodo(userId); // Todo tamamla
                     break;
                 case 6:
-                    uncompletedTodo(userId);
+                    uncompletedTodo(userId); // Todo tamamlanmamış olarak güncelle
                     break;
                 case 7:
-                    showCompletedTodoList(userId);
+                    showCompletedTodoList(userId); // Tamamlanmış todo listesini göster
                     break;
                 case 8:
-                    showUncompletedTodoList(userId);
+                    showUncompletedTodoList(userId); // Tamamlanmamış todo listesini göster
                     break;
                 case 9:
-                    exit();
+                    exit(); // Çıkış
                     break;
                 default:
                     System.out.println("Hatalı seçim");
@@ -158,7 +150,7 @@ public class Main {
         System.out.println("İçeriği: ");
         String content = scanner.nextLine();
         if (todoDbHelper.addTodo(userId, title, content)){
-            System.out.println("Todo başarıyla eklendi");
+            System.out.println("Todo başarıyla eklendi\n");
         }
         else{
             System.out.println("Todo eklenemedi");

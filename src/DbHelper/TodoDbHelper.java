@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TodoDbHelper {
-
     private Database database;
 
     public TodoDbHelper(Database database) {
@@ -28,7 +27,6 @@ public class TodoDbHelper {
         }
         System.out.println( "\n" );
     }
-
     public boolean addTodo(int userId, String title, String content) throws SQLException {
 
         database
@@ -38,7 +36,6 @@ public class TodoDbHelper {
                                 "VALUES ('" + title + "', '" + content + "', '" + userId + "', 0, datetime('now'))");
         return database.statement.getUpdateCount() > 0;
     }
-
     public boolean deleteTodo(int userId,int todoId) throws SQLException {
 
         database
@@ -47,7 +44,6 @@ public class TodoDbHelper {
                         "DELETE FROM todos WHERE id = " + todoId + " AND user_id = " + userId);
         return database.statement.getUpdateCount() > 0;
     }
-
     public boolean updateTodo(int userId,int todoId, String title, String content) throws SQLException {
 
         database
@@ -56,7 +52,6 @@ public class TodoDbHelper {
                         "UPDATE todos SET title = '" + title + "', content = '" + content + "' WHERE id = " + todoId + " AND user_id = " + userId);
         return database.statement.getUpdateCount() > 0;
     }
-
     public boolean completeTodo (int userId ,int todoId) throws SQLException {
 
         database
@@ -65,7 +60,6 @@ public class TodoDbHelper {
                         "UPDATE todos SET complete = 1 WHERE id = " + todoId + " AND user_id = " + userId);
         return database.statement.getUpdateCount() > 0;
     }
-
     public boolean uncompleteTodo (int userId ,int todoId) throws SQLException {
 
         database
@@ -74,7 +68,6 @@ public class TodoDbHelper {
                         "UPDATE todos SET complete = 0 WHERE id = " + todoId + " AND user_id = " + userId);
         return database.statement.getUpdateCount() > 0;
     }
-
     public void showCompletedTodos(int userId) throws SQLException {
         database
                 .statement
@@ -93,7 +86,6 @@ public class TodoDbHelper {
         System.out.println( "\n" );
 
     }
-
     public void showUncompletedTodos(int userId) throws SQLException {
         database
                 .statement
